@@ -51,8 +51,7 @@ namespace DemoApi.Controllers
         [HttpGet("demo/secret")]
         public string GetSecret()
         {
-            var value = _configuration["test"];
-            return value??"Not Find";
+            return _configuration["test"] ?? "Not Found";
         }
     }
 }

@@ -1,9 +1,9 @@
-{
-  "dependencies": {
-    "secrets1": {
-      "type": "secrets",
-      "connectionId": "VaultUri",
-      "dynamicId": null
-    }
-  }
-}
+//{
+//  "dependencies": {
+//    "secrets1": {
+//      "type": "secrets",
+//      "connectionId": "VaultUri",
+//      "dynamicId": null
+//    }
+//  }
+//}

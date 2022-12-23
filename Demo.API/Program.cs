@@ -21,13 +21,17 @@ namespace DemoApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureLogging(logging =>
+                {
+                    logging.AddConsole();
+                    logging.AddDebug();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 }).ConfigureAppConfiguration(async (hostingContext, config) =>
                 {
                     config.AddEnvironmentVariables();
-
 
                     ////var credential = new DefaultAzureCredential();
 
@@ -44,18 +48,25 @@ namespace DemoApi
                     //var credential = new ChainedTokenCredential(new DefaultAzureCredential(), new EnvironmentCredential());
                     //config.AddAzureKeyVault(keyVaultEndpoint, credential);
 
+
+                    // Do not use KeyVault when running locally
+                    if (!hostingContext.HostingEnvironment.IsDevelopment())
+                    {
+                        config.AddEnvironmentVariables();
+                        var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+
+                        // https://learn.microsoft.com/en-us/dotnet/api/azure.identity.defaultazurecredential?view=azure-dotnet
+                        var credential = new DefaultAzureCredential();
+                        config.AddAzureKeyVault(keyVaultEndpoint, credential);
+                    }
+
+
                     // works
                     //config.AddEnvironmentVariables();
                     //var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
                     //config.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 
                     // works
-                    //config.AddEnvironmentVariables();
-                    //var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-                    //// https://learn.microsoft.com/en-us/dotnet/api/azure.identity.defaultazurecredential?view=azure-dotnet
-                    //var credential = new DefaultAzureCredential();
-                    //config.AddAzureKeyVault(keyVaultEndpoint, credential);
-
                 });
     }
 }
