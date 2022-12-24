@@ -32,23 +32,7 @@ namespace DemoApi
                 }).ConfigureAppConfiguration(async (hostingContext, config) =>
                 {
                     config.AddEnvironmentVariables();
-
-                    ////var credential = new DefaultAzureCredential();
-
-                    //var credential = new ChainedTokenCredential(new DefaultAzureCredential(), new EnvironmentCredential());
-                    //var token = credential
-                    //.GetToken(new Azure.Core.TokenRequestContext(
-                    //    new[] { "https://database.windows.net/.default" }));
-
-                    //config.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential(), token);
-
-
-                    //config.AddEnvironmentVariables();
-                    //var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-                    //var credential = new ChainedTokenCredential(new DefaultAzureCredential(), new EnvironmentCredential());
-                    //config.AddAzureKeyVault(keyVaultEndpoint, credential);
-
-
+                                     
                     // Do not use KeyVault when running locally
                     if (!hostingContext.HostingEnvironment.IsDevelopment())
                     {
@@ -60,13 +44,18 @@ namespace DemoApi
                         config.AddAzureKeyVault(keyVaultEndpoint, credential);
                     }
 
+                    // Variation:
+                    //var credential = new ChainedTokenCredential(new DefaultAzureCredential(), new EnvironmentCredential());
+                    //var token = credential
+                    //.GetToken(new Azure.Core.TokenRequestContext(
+                    //    new[] { "https://database.windows.net/.default" }));
+                    //config.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential(), token);
 
-                    // works
+                    // Old code for later reference
                     //config.AddEnvironmentVariables();
                     //var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-                    //config.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
-
-                    // works
+                    //var credential = new ChainedTokenCredential(new DefaultAzureCredential(), new EnvironmentCredential());
+                    //config.AddAzureKeyVault(keyVaultEndpoint, credential);
                 });
     }
 }
