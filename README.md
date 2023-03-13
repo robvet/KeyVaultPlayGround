@@ -3,4 +3,4 @@ Simple .NET Core API. Includes Linux base image and Docker file for containerize
 
 Use for quick demos. Deploy native code or to a container registry.
 
-Include AAD plumbing to capture AAD user and token if running in Azure.
+Include AAD plumbing to capture AAD user and token if running in Azure to hook into a Key Vault
