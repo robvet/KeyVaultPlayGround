@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Azure.Identity;
 using Microsoft.AspNetCore.Builder;
 
+
 namespace DemoApi
 {
     public class Program
@@ -32,7 +33,7 @@ namespace DemoApi
                 }).ConfigureAppConfiguration(async (hostingContext, config) =>
                 {
                     config.AddEnvironmentVariables();
-                                     
+
                     // Do not use KeyVault when running locally
                     if (!hostingContext.HostingEnvironment.IsDevelopment())
                     {
